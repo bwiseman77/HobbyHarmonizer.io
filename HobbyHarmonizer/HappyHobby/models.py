@@ -10,7 +10,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 class Image(models.Model):
     title = models.CharField(max_length=200)
-    image = models.ImageField(upload_to='/uploads')
+    image = models.ImageField(upload_to='uploads')
 
 
 class Profile(models.Model):
