@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-ci4e_9t=bqf19-***ae^i45q&&ijew1^u1c&2vp4e2_%@n4r%^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '129.74.152.125', '127.0.0.1']
 
 
 # Application definition
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'HappyHobby.apps.HappyhobbyConfig'
 ]
 
 MIDDLEWARE = [
