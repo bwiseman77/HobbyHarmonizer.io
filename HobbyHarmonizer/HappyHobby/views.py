@@ -3,8 +3,12 @@ from django.shortcuts import render
 # Create your views here.
 
 from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponse
 
 def login_view(request):
+    return HttpResponse("login screen")
+
+def login_action(request):
     username = request.POST['username']
     password = request.POST['password']
     user = authenticate(request, username=username, password=password)
