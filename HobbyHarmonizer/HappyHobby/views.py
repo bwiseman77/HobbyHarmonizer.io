@@ -4,9 +4,27 @@ from django.shortcuts import render
 
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
+from . import forms
 
 def login_view(request):
-    return render(request, 'login.html/')
+    form = forms.LoginForm()
+    message = ''
+    if request.method == 'POST':
+        form = forms.LoginForm(request.POST)
+        if form.is_valid():
+            user = authenticate (
+                username = form.cleaned_data['username'],
+                password = form.cleaned_data['password'],
+            )
+            if user is None:
+                message = "Login Failed"
+                print("login failed :-(")
+            else:
+                login(request, user)
+                message = f"Hello {user.username}!"
+                print("login success :-)")
+            
+    return render(request, 'login.html/', context={'form': form, 'message' : message})
 
 def login_action(request):
     username = request.POST['username']

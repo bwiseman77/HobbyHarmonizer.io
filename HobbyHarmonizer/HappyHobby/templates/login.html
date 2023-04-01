@@ -1,5 +1,4 @@
-
-
+<!--
 <h2>Log In</h2>
 <form method="post">
   {% csrf_token %}
@@ -20,3 +19,20 @@
   <button type="button">Sign Up</button
 >
 </form>
+-->
+
+<html>
+	<head>
+		<title> Login </title>
+	</head>
+	<body>
+		<h1> Welcome to Hobby Harmonizers!  </h1>
+		<p> {{ messsage }} </p>
+		<form method="post">
+			{{ form.as_p }}
+			{% csrf_token %}
+			<button type="submit"> Login </button>
+		</form>
+		<button type="button"> Sign Up </button>
+	</body>
+</html>
