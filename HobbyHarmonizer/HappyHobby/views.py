@@ -39,6 +39,9 @@ def registeredEvents_view(request):
 def hostedEvents_view(request):
     return render(request, 'hostedEvents.html/')
 
+def detailView(request):
+    return render(request, 'detailView.html/')
+
 def logout_view(request):
     print("logging out")
     logout(request)

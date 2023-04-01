@@ -11,5 +11,6 @@ urlpatterns = [
    path("logout/", views.logout_view, name="logout"),
    path("registeredEvents/", views.registeredEvents_view, name="registeredEvents"),
    path("hostedEvents/", views.hostedEvents_view, name="hostedEvents"),
+   path("detailView/", views.detailView_view, name="detailView"),
    # path('login/', auth_views.LoginView.as_view(template_name='HobbyHarmonizer/login.html')),
 ]
