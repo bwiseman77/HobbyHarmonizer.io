@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% if user.is_authenticated %}
+    <p> hi {{ user.username }} this is your dashboard, yay :) </p>
+    <a href="/logout"> Logout </a>
+    {% else %}
+        <p> plz log in </p>
+        <a href="/login"> Login Here </a>
+    {% endif %}
+{% endblock content %}

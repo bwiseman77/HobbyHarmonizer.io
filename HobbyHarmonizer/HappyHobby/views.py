@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
 
@@ -23,8 +23,14 @@ def login_view(request):
                 login(request, user)
                 message = f"Hello {user.username}!"
                 print("login success :-)")
+                return redirect("/dashboard")
             
     return render(request, 'login.html/', context={'form': form, 'message' : message})
 
+def dashboard_view(request):
+    return render(request, 'dashboard.html/')
+
 def logout_view(request):
+    print("logging out")
     logout(request)
+    return redirect("/login")
