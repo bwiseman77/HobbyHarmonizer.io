@@ -5,5 +5,6 @@ from django.urls import path
 app_name = "HappyHarmonizer"
 
 urlpatterns = [
-    path("login/", views.login_view, name="Login"),
+   path("login/", views.login_view, name="login"),
+   # path('login/', auth_views.LoginView.as_view(template_name='HobbyHarmonizer/login.html')),
 ]

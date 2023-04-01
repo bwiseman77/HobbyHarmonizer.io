@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 
 def login_view(request):
-    return HttpResponse("login screen")
+    return render(request, 'login.html/')
 
 def login_action(request):
     username = request.POST['username']
