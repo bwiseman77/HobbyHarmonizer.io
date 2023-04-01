@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.timezone import now
 from datetime import datetime
-
 # Create your models here.
     
 class Profile(models.Model):
@@ -17,10 +17,9 @@ class Profile(models.Model):
 class Tags(models.Model):
     name = models.CharField(max_length=20)
 
-
 class Event(models.Model):
     event_date = models.DateTimeField(blank=False, null=False)
-    creation_date = models.DateTimeField(default=datetime.now())
+    creation_date = models.DateTimeField(default=now)
     author = models.ForeignKey(Profile, related_name='author', on_delete=models.CASCADE)
     description = models.CharField(max_length=500)
     tags = models.ManyToManyField(Tags)
