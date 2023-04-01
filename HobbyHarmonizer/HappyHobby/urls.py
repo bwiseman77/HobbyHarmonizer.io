@@ -9,5 +9,7 @@ urlpatterns = [
    path("signup/", views.signup, name='signup'),
    path("dashboard/", views.dashboard_view, name="dashboard"),
    path("logout/", views.logout_view, name="logout"),
+   path("registeredEvents/", views.registeredEvents_view, name="registeredEvents"),
+   path("hostedEvents/", views.hostedEvents_view, name="hostedEvents"),
    # path('login/', auth_views.LoginView.as_view(template_name='HobbyHarmonizer/login.html')),
 ]
