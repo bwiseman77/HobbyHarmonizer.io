@@ -39,7 +39,7 @@ def registeredEvents_view(request):
 def hostedEvents_view(request):
     return render(request, 'hostedEvents.html/')
 
-def detailView(request):
+def detailView_view(request):
     return render(request, 'detailView.html/')
 
 def logout_view(request):
