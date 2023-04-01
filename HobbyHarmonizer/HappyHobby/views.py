@@ -5,6 +5,10 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 
 def login_view(request):
+    print('yay')
+    return HttpResponse("login")
+
+def login_action(request):
     username = request.POST['username']
     password = request.POST['password']
     user = authenticate(request, username=username, password=password)
