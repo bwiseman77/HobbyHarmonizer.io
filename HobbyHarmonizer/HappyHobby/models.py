@@ -8,11 +8,6 @@ from django.core.exceptions import ObjectDoesNotExist
 
 # Create your models here.
 
-class Image(models.Model):
-    title = models.CharField(max_length=200)
-    image = models.ImageField(upload_to='/uploads')
-
-
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
@@ -20,8 +15,8 @@ class Profile(models.Model):
     password = models.CharField(max_length=30)
     email = models.EmailField()
     bio = models.CharField(max_length=300)
-    picture = models.OneToOneField(Image, on_delete=models.CASCADE)
-
+    image = models.ImageField(default='image.jpg', upload_to='profile_pics')
+    
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     try:

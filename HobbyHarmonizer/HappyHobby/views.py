@@ -7,7 +7,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from . import forms
-from HappyHobby.forms import SignUpForm
+#from HappyHobby.forms import SignUpForm
 
 def login_view(request):
     form = forms.LoginForm()
@@ -38,21 +38,4 @@ def logout_view(request):
     logout(request)
     return redirect("/login")
 
-def signup(request):
-    if request.method == 'POST':
-        form = SignUpForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            user.refresh_from_db() # load profile
-            user.profile.bio = form.cleaned_data.get('bio')
-            user.profile.email = form.cleaned_data.get('email')
-            #user.profile.picture = form.cleaned_data.get('picture')
-            user.save()
-            #username = form.cleaned_data.get('username')
-            #raw_password = form.cleaned_data.get('password')
-            #user = authenticate(username=username, password=raw_password)
-            #login(request, user)
-            return redirect('/login')
-    else:
-        form = SignUpForm()
-    return render(request, 'signup.html', {'form': form})
+
