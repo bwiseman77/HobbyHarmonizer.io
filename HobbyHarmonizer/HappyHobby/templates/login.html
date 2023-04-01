@@ -1,1 +1,22 @@
-hi
+
+
+<h2>Log In</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+
+  <label>Username <span>*</span></label>
+  <input type="text"   name="username" placeholder="Username" required="" />
+
+  <h2>  </h2>
+
+  <label>Password <span>*</span></label>
+  <input type="password"  name="password" placeholder="Password" required="" />
+
+  <h2>  </h2>
+
+  <button type="submit">Log In</button>
+
+  <button type="button">Sign Up</button
+>
+</form>
