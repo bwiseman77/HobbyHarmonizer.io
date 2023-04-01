@@ -4,14 +4,10 @@ from django.utils.timezone import now
 from datetime import datetime
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from PIL import Image
 from django.core.exceptions import ObjectDoesNotExist
 
 # Create your models here.
-
-class Image(models.Model):
-    title = models.CharField(max_length=200)
-    image = models.ImageField(upload_to='/uploads')
-
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -20,7 +16,18 @@ class Profile(models.Model):
     password = models.CharField(max_length=30)
     email = models.EmailField()
     bio = models.CharField(max_length=300)
-    picture = models.OneToOneField(Image, on_delete=models.CASCADE)
+    picture = models.ImageField(default='image.jpg', upload_to='images', null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+
+       # super().save(*args, **kwargs)
+
+        img = Image.open(self.picture.path)
+        if img.height > 300 or img.width > 300:
+            output_size = (300,300)
+            img.thumbnail(output_size)
+            img.save(self.picture.path)
+        
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
@@ -28,12 +35,6 @@ def create_user_profile(sender, instance, created, **kwargs):
         instance.profile.save()
     except ObjectDoesNotExist:
         Profile.objects.create(user=instance)
-
-@receiver(post_save, sender=User)
-def update_user_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
-    instance.profile.save()
 
 
 class Tags(models.Model):

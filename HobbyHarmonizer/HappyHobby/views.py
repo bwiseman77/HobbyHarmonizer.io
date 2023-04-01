@@ -40,14 +40,15 @@ def logout_view(request):
 
 def signup(request):
     if request.method == 'POST':
-        form = SignUpForm(request.POST)
+        form = SignUpForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save()
             user.refresh_from_db() # load profile
             user.profile.bio = form.cleaned_data.get('bio')
             user.profile.email = form.cleaned_data.get('email')
-            #user.profile.picture = form.cleaned_data.get('picture')
-            user.save()
+            print(form.cleaned_data.get('picture'), type(form.cleaned_data.get('picture')))
+            user.profile.picture = form.cleaned_data.get('picture')
+            user.profile.save()
             #username = form.cleaned_data.get('username')
             #raw_password = form.cleaned_data.get('password')
             #user = authenticate(username=username, password=raw_password)
