@@ -25,6 +25,8 @@ class ImageForm(forms.ModelForm):
         fields = ["title", "image"]
 
 class EventForm(forms.ModelForm):
+
+    event_date = forms.DateTimeField(help_text='format: yyyy-mm-dd')
     class Meta:
         model = Event
-        fields = ["description", "tags"]
+        fields = ["event_date", "location", "description", "tags","charity"]
