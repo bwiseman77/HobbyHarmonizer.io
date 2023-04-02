@@ -1,6 +1,23 @@
 {% extends 'base.html' %}
 {% block content %}
     {% if user.is_authenticated %}
+
+	  <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#"> Hobby Harmonizers </a>
+        </div>
+        <ul class="nav navbar-nav"> 
+          <li color="blue"><a href="/logout"> Logout </a></li>
+          <li><a href="/dashboard"> Home </a></li>
+          <li><a href="/registeredEvents"> My Registered Events </a></li>
+          <li class="active"><a href="/hostedEvents"> My Hosted Events </a></li>
+          <li><a href="/createPost"> Create a Post </a>
+        </ul>
+      </div>
+      </nav>
+
+
         <p> hi {{ user.username }} this is your page of hosted events,  yay :) </p>
 	{% else %}
         <p> Please login </p>
