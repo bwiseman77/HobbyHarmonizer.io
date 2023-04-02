@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	<a class="navbar-brand" href="#"> Hobby Harmonizers</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" href="/dashboard"> Home </a>
+      <a class="nav-item nav-link" href="/registeredEvents"> My Registered Events </a>
+      <a class="nav-item nav-link" href="/hostedEvents"> My Hosted Events</a>
+	  <a class="nav-item nav-link" href="/logout"> Logout </a>
+	  <a class="nav-item nav-link" href="/createEvent"> Create an Event </a>
+    </div>
+            <div style="margin: 10px;">
+                <div class="navbar-right" style="justify-content:right">
+                    <a href="/profile"><img src="../media/{{ user.profile.picture.image }}" alt="{{user.profile.picture.title}}" width="45", height="45" style="border-radius: 50%" class="rounded-circle "></a>
+                </div>
+            </div>
+ 	</div>
+	</nav>
+    <div class="container">
+        <div>
+            <div class="text-center" style="" >
+                <div style="opacity:.9; align-items: center">
+                    <div class="media pl-5 ml-5 ">
+
+                    <h1 class="account-heading " style="margin: 30px">{{ event.title }}</h1>
+
+                    <h3 class="account-heading" style="margin: 30px">{{ event.location }}</h3>
+
+                    <h3 class="account-heading" style="margin: 30px">{{ event.author.name }}</h3>
+                    <p class="text-secondary" style="margin: 30px">{{ event.event_time }}</p>
+
+                    <p class="text-secondary" style="margin: 30px">Description: {{ event.description }}</p>
+                      </div>
+                    </div>
+              </div>
+            </div>
+        </div>
+    </div>
+
+
+     <form action="{% url 'HappyHobby:donate' event.id %}" method="POST">
+            {% csrf_token %}
+            <div>
+            <p>{{ event.author.name }} has chosen to donate proceeds to {{ event.get_charity_display}}! Feel free to contribute :)
+            </div>
+            <div>
+            <label for="amount">amount: </label>
+
+        <input id="amount" type="text" name="amount" value="0" maxlength="100" required>
+        {% if registered %}
+            <button type="submit" name="event_id" value="{{object.id}}" class="btn btn-warning"> Unregister!!</button>
+        {% else %}
+            <button type="submit" name="event_id" value="{{object.id}}" class="btn btn-info"> Register!!</button>
+        {% endif %}
+            </div>
+        </form>
+
+	
+{% endblock %}

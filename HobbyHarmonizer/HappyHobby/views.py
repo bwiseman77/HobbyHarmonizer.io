@@ -4,14 +4,14 @@ from django.shortcuts import render, redirect
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from . import forms
 from HappyHobby.forms import SignUpForm
 from django.views.generic import CreateView, DetailView, ListView
 from .models import Image, Event
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 
 def login_view(request):
     form = forms.LoginForm()
@@ -137,9 +137,6 @@ class CreateEventView(CreateView):
         return response
 
 
-class EventDetailView(DetailView):
-    model = Event
-    form_class = forms.EventForm
 
 class EventListView(ListView):
     model = Event
@@ -152,3 +149,42 @@ class EventListView(ListView):
         print('hi')
         return Event.objects.all()
 
+
+def signup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            user.refresh_from_db()  # load the profile instance created by the signal
+            user.profile.email = form.cleaned_data.get('email')
+            user.profile.save()
+            user.save()
+            login(request, user)
+            return redirect('/picture')
+    else:
+        form = SignUpForm()
+    return render(request, 'signup.html', {'form': form})
+
+
+class EventDetailView(DetailView):
+    model = Event
+    template_name = 'detailEvent.html'
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['registered'] = get_object_or_404(Event, id=self.kwargs['pk']).registered_users.filter(id=self.request.user.profile.id).exists()
+        return data
+
+
+def donate(request, pk):
+    #pk = request.POST.get('event_id')
+    event = get_object_or_404(Event, id=pk)
+    if event:
+        print("amount", request.POST.get('amount'))
+        event.raised_money = event.raised_money + int(request.POST.get('amount'))
+        if event.registered_users.filter(id=request.user.profile.id).exists():
+            event.registered_users.remove(request.user.profile)
+        else:
+            event.registered_users.add(request.user.profile)
+        event.save()
+    return HttpResponseRedirect(reverse('HappyHobby:detailEvent', args=[str(pk)]))

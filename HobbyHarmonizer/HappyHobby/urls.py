@@ -12,6 +12,8 @@ urlpatterns = [
    path("picture/", views.CreateImageView.as_view(), name="add_picture"),
    path("createEvent/", views.CreateEventView.as_view(), name="create_event"),
    path('event/<int:pk>/', views.EventDetailView.as_view(), name="detailEvent"),
+   path('donate/<int:pk>/', views.donate, name='donate'),
+
    path("profile/", views.UserEventListView.as_view(), name="profile"),
    path("logout/", views.logout_view, name="logout"),
    path("registeredEvents/", views.registeredEvents_view, name="registeredEvents"),
