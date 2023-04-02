@@ -1,24 +1,48 @@
 {% extends 'base.html' %}
 
+
 {% block content %}
+
+<style>
+	p {text-align: center;}
+</style>
+
     {% if user.is_authenticated %}
 
-      <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#"> Hobby Harmonizers </a>
-        </div>
-        <ul class="nav navbar-nav"> 
-          <li color="blue"><a href="/logout"> Logout </a></li>
-          <li class="active"><a href="/dashboard"> Home </a></li>
-          <li><a href="/registeredEvents"> My Registered Events </a></li>
-          <li><a href="/hostedEvents"> My Hosted Events </a></li>
-          <li><a href="/createPost"> Create an Event </a>
-        </ul>
-      </div>
-      </nav>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	<a class="navbar-brand" href="#"> Hobby Harmonizers</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" href="/dashboard"> Home </a>
+      <a class="nav-item nav-link" href="/registeredEvents"> My Registered Events </a>
+      <a class="nav-item nav-link" href="/hostedEvents"> My Hosted Events</a>
+	  <a class="nav-item nav-link" href="/logout"> Logout </a>
+    </div>
+ 	</div>
+	</nav>
 
     <p> hi {{ user.username }} this is your dashboard, yay :) </p>
+
+	{% if event_list %}
+		{% for event in event_list %}
+
+			<div class="card" style="width: 15rem;">
+			<div class="card-body">
+			<h6 class="card-title">Card title</h5>
+			<h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
+			<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+			<a href="/event/{{event.id}}/" class="card-link">Card link</a>
+    		<a href="#" class="card-link">Another link</a>
+		    </div>
+			</div>
+
+			{% endfor %}
+	{% else %}
+		<p> no events </p>
+	{% endif %}
 
     <img src="{{user.picture.url}}">
 
