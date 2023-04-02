@@ -23,6 +23,69 @@
     {% if user.is_authenticated %}
         <p> hi {{ user.username }} this is your dashboard, yay :) </p>
         <img src="{{user.picture.url}}">
+
+
+        {% for event in object_list %}
+            <li>{{ event.description }} - {{ event.author.name}}</li>
+        {% empty %}
+            <li>No events yet.</li>
+        {% endfor %}
+<form action="{% url 'Recruit:filter' %}" method="POST">
+	<h6><i>
+	filter by
+        {% csrf_token %}
+        <button type="submit" name="all" class="btn-secondary">all posts</button>
+        <button type="submit" name="active" class="btn-secondary">active posts</button>
+        <button type="submit" name="inactive" class="btn-secondary">inactive posts</button>
+        <button type="submit" name="interested" class="btn-secondary">interested posts</button>
+    </i></h6>
+    </form>
+	{% if latest_post_list %}
+			<div class="container">
+        		<div class="row">
+					{% for event in latest_post_list %}
+            			<div class="col-5">
+	              			<a href = "/post/{{post.id}}/">
+	              			<div class="card bg-light" style="margin-bottom:5px;">
+			                <div class="card-body"> 
+			                  	<h4 class="card-title">{{post.post_title}}</h4>
+			                    <h6 class="card-subtitle">Company: {{post.post_company}}</h6><br>
+			                    <h6 class="card-subtitle">Status:
+			                        {% if post.post_status %} Active
+	                    			{% else %} Inactive
+	                    			{% endif %}
+	                    		</h6>
+	                    		<h6>
+	                    			Type: {{post.get_post_type_display}}
+	                    		</h6>
+			                    <h6 class="card-subtitle">Expiration date:
+			                        {% if post.post_expiration.is_past_due %} 
+			                        Expired on {{ post.post_expiration }}
+			                        {% else %} 
+			                        {{ post.post_expiration }}
+			                        {% endif %}
+			                    </h6>
+			                    {% if type == "Recruiter" %}
+			                    <h6> Interested candidates: {{post.post_interested_candidates.count}}
+								</h6>
+
+			                    {% if post.post_recruiter.id == id %}
+			                    	<a href="/{{post.id}}/delete_post" type="button" class="btn btn-l btn-danger"> Delete 💣</a>
+					        		<a href="/{{post.id}}/update_post" type="button" class="btn btn-l btn-warning"> Update 🛠</a>
+					        		{% if post.post_interested_candidates.count > 0 %}
+                                    <a href="/{{post.id}}/make_offer" type="button" class="btn btn-success"> Make an offer💸</a>
+                                    {% endif %}
+                                  
+			                    {% endif %}
+			                    {% endif %}
+					        </div>
+					        </div>
+					        </a>
+				            </div> 
+				    {% endfor %}
+            	</div>
+          	</div>
+
 	{% else %}
         <p> plz log in </p>
         <a href="/login"> Login Here </a>
