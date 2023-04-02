@@ -96,6 +96,20 @@ class CreateImageView(CreateView):  # new
         self.request.user.profile.save()
         return response
 
+class CreateEventView(CreateView):
+    model = Event
+    form_class = forms.EventForm
+    template_name = "create_event.html"
+    success_url = reverse_lazy("HappyHobby:dashboard")
+
+    def form_valid(self, form):
+        response = super(CreateEventView, self).form_valid(form)
+        obj = form.save(commit=False)
+        obj.author=self.request.user.profile
+        obj.save()
+        return response
+
+
 class EventDetailView(DetailView):
     model = Event
     form_class = forms.EventForm

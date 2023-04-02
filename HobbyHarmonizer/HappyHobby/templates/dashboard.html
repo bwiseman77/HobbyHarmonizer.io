@@ -19,18 +19,14 @@
         <img src="{{user.picture.url}}">
 	{% else %}
 
-
     <p> hi {{ user.username }} this is your dashboard, yay :) </p>
-    <a href="/logout"> Logout </a>
+
     <img src="{{user.picture.url}}">
 
-    <!-- (curly bracket) % else % (curly bracket)
+    {%  else %}
 	
         <p> plz log in </p>
         <a href="/login"> Login Here </a>
 
-	-->
-
-        <p> Please login </p>
     {% endif %}
 {% endblock content %}

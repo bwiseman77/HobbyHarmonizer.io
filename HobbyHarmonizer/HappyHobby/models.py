@@ -6,6 +6,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from PIL import Image
 from django.core.exceptions import ObjectDoesNotExist
+from multiselectfield import MultiSelectField
 
 # Create your models here.
 
@@ -28,33 +29,29 @@ def update_user_profile(sender, instance, created, **kwargs):
     instance.profile.save()       
 
 
-class Tags(models.Model):
-    name = models.CharField(max_length=20)
-
-
 class Event(models.Model):
     event_date = models.DateTimeField(blank=False, null=False)
     creation_date = models.DateTimeField(default=now)
-    author = models.ForeignKey(Profile, related_name='author', on_delete=models.CASCADE)
+    author = models.ForeignKey(Profile, related_name='author', on_delete=models.CASCADE, null=True)
     description = models.CharField(max_length=500)
-    tags = models.ManyToManyField(Tags)
     raised_money = models.IntegerField(default=0)
-    '''
-            max_length=30,
-            choices=[
-                "cooking",
-                "fitness",
-                "social",
-                "nature",
-                "art",
-                "cultural",
-                "animals",
-                "active",
-                "chill",
-                "educational"
-                ]
-            )
-    '''
+    
+    tags = MultiSelectField(
+            choices=(
+                ('a', "cooking🍳"),
+                ('b',"fitness⚽️"),
+                ('c',"social🗣️"),
+                ('d',"nature🌳"),
+                ('e',"art🎨"),
+                ('f',"cultural🌈"),
+                ('g',"animals🐶"),
+                ('h',"active💃"),
+                ('i',"chill😌"),
+                ('j',"educational📚")
+            ), max_length=20,
+            max_choices=5
+        )
+    
     active = models.BooleanField(default=True)
     location = models.CharField(max_length=100)
     charity = models.CharField(
