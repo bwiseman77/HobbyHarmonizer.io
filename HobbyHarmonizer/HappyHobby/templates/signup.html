@@ -2,7 +2,7 @@
 {% block content %}
   
   <body style="display: flex; justify-content: center">
-  <div style="background-color: white;margin: auto; padding: 50px">
+  <div style="background-color: white;margin: auto; padding: 50px; text-align:left">
   <h2>Sign up</h2>
   <form method="post">
     {% csrf_token %}
@@ -18,7 +18,7 @@
         {% endfor %}
       </p>
     {% endfor %}
-    <button type="submit">Sign up</button>
+    <button class="btn btn-primary" type="submit">Sign up</button>
   </form>
     <a href="/dashboard"> Back </a>
   </div>
