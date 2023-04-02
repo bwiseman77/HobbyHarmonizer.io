@@ -3,9 +3,6 @@
 
 {% block content %}
 
-<style>
-	p {text-align: center;}
-</style>
 
     {% if user.is_authenticated %}
 
@@ -24,7 +21,7 @@
  	</div>
 	</nav>
 
-    <p> hi {{ user.username }} this is your dashboard, yay :) </p>
+    <p text-align=center> hi {{ user.username }} this is your dashboard, yay :) </p>
 
 	{% if event_list %}
 		{% for event in event_list %}
