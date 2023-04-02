@@ -38,7 +38,7 @@ class Event(models.Model):
     author = models.ForeignKey(Profile, related_name='author', on_delete=models.CASCADE)
     description = models.CharField(max_length=500)
     tags = models.ManyToManyField(Tags)
-    raised_money = models.IntegerField()
+    raised_money = models.IntegerField(default=0)
     '''
             max_length=30,
             choices=[
@@ -57,20 +57,19 @@ class Event(models.Model):
     '''
     active = models.BooleanField(default=True)
     location = models.CharField(max_length=100)
-    picture = models.ImageField(upload_to='uploads/')
     charity = models.CharField(
             max_length=50,
             choices=[
-                (1,"Boys & Girls Club of SB"),
-                (2,"SB Center for the Homeless"),
-                (3,"American Red Cross"),
-                (4,"Salvation Army"),
-                (5,"Native American Rights Fund"),
-                (6,"St. Jude Children's Research Hospital"),
-                (7,"Habitat for Humanity"),
-                (8,"Wounded Warrior Project"),
-                (9,"Humane Society"),
-                (10,"Special Olympics")
+                ("1","Boys & Girls Club of SB"),
+                ("2","SB Center for the Homeless"),
+                ("3","American Red Cross"),
+                ("4","Salvation Army"),
+                ("5","Native American Rights Fund"),
+                ("6","St. Jude Children's Research Hospital"),
+                ("7","Habitat for Humanity"),
+                ("8","Wounded Warrior Project"),
+                ("9","Humane Society"),
+                ("10","Special Olympics")
                 ]
             )
 
