@@ -3,34 +3,31 @@
 
 {% block content %}
 
-
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-	<a class="navbar-brand" href="#"> Hobby Harmonizers</a>
-	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+    <a class="navbar-brand" href="#">Hobby Harmonize</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
-	</button>
-	<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a class="nav-item nav-link active" href="/dashboard"> Home </a>
-      <a class="nav-item nav-link" href="/registeredEvents"> My Registered Events </a>
-      <a class="nav-item nav-link" href="/hostedEvents"> My Hosted Events</a>
-	  <a class="nav-item nav-link" href="/logout"> Logout </a>
-	  <a class="nav-item nav-link" href="/createEvent"> Create an Event </a>
+    <a class="nav-link active" aria-current="page" href="/dashboard">Home</a>
+    <a class="nav-link" href="/registeredEvents">My Registered Events</a>
+    <a class="nav-link" href="/createEvent">Create an Event</a>
+    <a class="nav-link" href='/logout'>Logout</a>
     </div>
-            <div style="margin: 10px;">
+    </div>
+    <div style="margin: 10px;">
                 <div class="navbar-right" style="justify-content:right">
                     <a href="/profile"><img src="../media/{{ user.profile.picture.image }}" alt="{{user.profile.picture.title}}" width="45", height="45" style="border-radius: 50%" class="rounded-circle "></a>
                 </div>
-            </div>
- 	</div>
-	</nav>
+    </div>
+    </nav>
+
 
     {% if user.is_authenticated %}
 
     <h3 text-align=center><u> Upcoming Events:</u> </h3>
-
-
-    <p text-align=center> hi {{ user.username }} this is your dashboard, yay :) </p>
 
 	{% if event_list %}
         <div class="row row-cols-1 row-cols-md-6 g-4">
