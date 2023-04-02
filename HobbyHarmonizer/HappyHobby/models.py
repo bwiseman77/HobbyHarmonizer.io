@@ -32,7 +32,7 @@ def update_user_profile(sender, instance, created, **kwargs):
 class Event(models.Model):
     event_date = models.DateTimeField(blank=False, null=False)
     creation_date = models.DateTimeField(default=now)
-    author = models.ForeignKey(Profile, related_name='author', on_delete=models.CASCADE)
+    author = models.ForeignKey(Profile, related_name='author', on_delete=models.CASCADE, null=True)
     description = models.CharField(max_length=500)
     raised_money = models.IntegerField(default=0)
     
@@ -45,11 +45,11 @@ class Event(models.Model):
                 ('e',"art🎨"),
                 ('f',"cultural🌈"),
                 ('g',"animals🐶"),
-                ('h',"ctive💃"),
+                ('h',"active💃"),
                 ('i',"chill😌"),
                 ('j',"educational📚")
             ), max_length=20,
-            max_choices=5, null=True
+            max_choices=5
         )
     
     active = models.BooleanField(default=True)

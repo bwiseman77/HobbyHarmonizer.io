@@ -105,7 +105,7 @@ class CreateEventView(CreateView):
     def form_valid(self, form):
         response = super(CreateEventView, self).form_valid(form)
         obj = form.save(commit=False)
-        obj.author=self.user.profile
+        obj.author=self.request.user.profile
         obj.save()
         return response
 

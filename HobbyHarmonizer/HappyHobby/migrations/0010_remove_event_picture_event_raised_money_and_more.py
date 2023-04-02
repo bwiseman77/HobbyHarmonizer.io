@@ -30,7 +30,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='event',
             name='tags',
-            field=multiselectfield.db.fields.MultiSelectField(choices=[('a', 'cooking🍳'), ('b', 'fitness⚽️'), ('c', 'social🗣️'), ('d', 'nature🌳'), ('e', 'art🎨'), ('f', 'cultural🌈'), ('g', 'animals🐶'), ('h', 'ctive💃'), ('i', 'chill😌'), ('j', 'educational📚')], max_length=20, null=True),
+            field=multiselectfield.db.fields.MultiSelectField(choices=[('a', 'cooking🍳'), ('b', 'fitness⚽️'), ('c', 'social🗣️'), ('d', 'nature🌳'), ('e', 'art🎨'), ('f', 'cultural🌈'), ('g', 'animals🐶'), ('h', 'Active💃'), ('i', 'chill😌'), ('j', 'educational📚')], max_length=20, null=True)),
         migrations.AlterField(
             model_name='event',
             name='charity',
