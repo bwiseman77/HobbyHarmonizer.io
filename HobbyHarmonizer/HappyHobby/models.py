@@ -50,23 +50,23 @@ class Event(models.Model):
                 ('j',"educational📚")
             ), max_length=20,
             max_choices=5, null=True
-            )
+        )
     
     active = models.BooleanField(default=True)
     location = models.CharField(max_length=100)
     charity = models.CharField(
             max_length=50,
             choices=[
-                (1,"Boys & Girls Club of SB"),
-                (2,"SB Center for the Homeless"),
-                (3,"American Red Cross"),
-                (4,"Salvation Army"),
-                (5,"Native American Rights Fund"),
-                (6,"St. Jude Children's Research Hospital"),
-                (7,"Habitat for Humanity"),
-                (8,"Wounded Warrior Project"),
-                (9,"Humane Society"),
-                (10,"Special Olympics")
+                ("1","Boys & Girls Club of SB"),
+                ("2","SB Center for the Homeless"),
+                ("3","American Red Cross"),
+                ("4","Salvation Army"),
+                ("5","Native American Rights Fund"),
+                ("6","St. Jude Children's Research Hospital"),
+                ("7","Habitat for Humanity"),
+                ("8","Wounded Warrior Project"),
+                ("9","Humane Society"),
+                ("10","Special Olympics")
                 ]
             )
 

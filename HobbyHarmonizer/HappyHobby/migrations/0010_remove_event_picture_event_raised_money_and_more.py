@@ -31,5 +31,9 @@ class Migration(migrations.Migration):
             model_name='event',
             name='tags',
             field=multiselectfield.db.fields.MultiSelectField(choices=[('a', 'cooking🍳'), ('b', 'fitness⚽️'), ('c', 'social🗣️'), ('d', 'nature🌳'), ('e', 'art🎨'), ('f', 'cultural🌈'), ('g', 'animals🐶'), ('h', 'ctive💃'), ('i', 'chill😌'), ('j', 'educational📚')], max_length=20, null=True),
+        migrations.AlterField(
+            model_name='event',
+            name='charity',
+            field=models.CharField(choices=[('1', 'Boys & Girls Club of SB'), ('2', 'SB Center for the Homeless'), ('3', 'American Red Cross'), ('4', 'Salvation Army'), ('5', 'Native American Rights Fund'), ('6', "St. Jude Children's Research Hospital"), ('7', 'Habitat for Humanity'), ('8', 'Wounded Warrior Project'), ('9', 'Humane Society'), ('10', 'Special Olympics')], max_length=50),
         ),
     ]

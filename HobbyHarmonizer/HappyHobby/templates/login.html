@@ -8,38 +8,29 @@
 	div {text-align: center;}
 	h5 {text-align: center;}
 	form {text-align: center;}
+    h6 {}
 	body {
+      text-align: center;
 	  background-image: url('https://images.pexels.com/photos/255379/pexels-photo-255379.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
 	}
 </style>
-
-	<h6> _ </h6>
-    <h6> _ </h6>
-	<h6> _ </h6>
-	<h6> _ </h6>
-    <h6> _ </h6>
-	<h6> _ </h6>
-	<h6> _ </h6>
-    <h6> _ </h6>
-	<h6> _ </h6>
-
-
-	<h1 style="font-family:georgia";> <b> Welcome to Hobby Harmonizers! </b> </h1>
-
-		<h6> _ </h6>
-
-		<p> {{ messsage }} </p>
-		<form method="post">
-			{{ form.as_p }}
-			{% csrf_token %}
-			<button type="submit" class="btn btn-light">Login</button>
-		</form>
-
-		<h6> _ </h6>
+    
+    <div>
+	    <h1 style="font-family:georgia";> <b> Welcome to Hobby Harmonizers! </b> </h1>
+        
+        <div>
+		    <p> {{ messsage }} </p>
+		    <form method="post">
+			    {{ form.as_p }}
+			    {% csrf_token %}
+			    <button type="submit" class="btn btn-light">Login</button>
+		    </form>
+        </div>
 
 		<h5>
 			Don't have an account?
 			<a href="/signup" style="background: white;" type="button" class="btn btn-light"> Sign Up </a>
 		</h5>
+    </div>
 		
 {% endblock content %}
