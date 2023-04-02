@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Profile Page{% endblock title %}
+{% block content %}
+    {% if user.is_authenticated %}
+   	<div class="container my-5 py-5 mx-5 px-5">
+        <div class="row">
+            <div class="col-md-10 text-center" style="margin:auto;" >
+                <div class="mx-auto bg-light pt-5 mt-5 pb-5 mb-5 rounded" style="opacity:.9">
+                    <div class="media pl-5 ml-5 ">
+                        <img class="rounded-circle" src="../media/{{ user.profile.picture.image }}", alt="{{ user.profile.picture.title }}" width="300" height="300"> 
+                      <div class="media-body">
+
+                    <h1 class="account-heading mt-5" style="margin-left: 30px">{{ user.profile.name }}</h1>
+
+                    <h3 class="account-heading" style="margin-left: 30px">{{ user.username }}</h3>
+
+                    <h3 class="account-heading" style="margin-left: 30px">{{ user.profile.email }}</h3>
+                    <p class="text-secondary" style="margin-left: 30px">{{ user.profile.bio }}</p>
+                      </div>
+                    </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    {% for event in events %}
+    {% if event %}
+        <div class="card mb-3">
+            <img class="card-img-top" src="{{ event.event_date }}" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">{{ event.title }}</h5>
+                <p class="card-text">{{ event.description }}</p>
+                <a href="{% url 'post-detail' %}" class="btn btn-primary"> See Details </a>
+            </div>
+            <div class="card-footer text-secondary">
+                <a class="mr-2" href="{% url 'profile' %}">{{ event.author }}</a>|| 
+                {{ event.creation_date }}
+            </div> 
+        </div>
+    {% endif %}
+    {% endfor %}
+   
+    {% endif %}
+{% endblock content %}
