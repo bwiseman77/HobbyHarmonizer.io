@@ -5,23 +5,11 @@
   <div style="background-color: white;margin: auto; padding: 50px; text-align:left">
   <h2>Add a Profile Picture!</h2>
   <h4>Last step of registration :)</h4>
-  <form method="post">
+  <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {% for field in form %}
-      <p>
-        {{ field.label_tag }}<br>
-        {{ field }}
-        {% if field.help_text %}
-          <small style="color: grey">{{ field.help_text }}</small>
-        {% endif %}
-        {% for error in field.errors %}
-          <p style="color: red">{{ error }}</p>
-        {% endfor %}
-      </p>
-    {% endfor %}
-    <button class="btn btn-primary" type="submit">Sign up</button>
-  </form>
-    <a href="/dashboard"> Back </a>
+    {{ form.as_p }}
+    <button type="submit">Submit New Post</button>
+    </form>    <a href="/dashboard"> Back </a>
   </div>
   </body>
 {% endblock %}
