@@ -10,8 +10,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from . import forms
 from HappyHobby.forms import SignUpForm
 from django.views.generic import CreateView, DetailView, ListView
-from .models import Image, Event
 from django.urls import reverse_lazy, reverse
+from .models import Image, Event, Profile
 
 def login_view(request):
     form = forms.LoginForm()
@@ -154,7 +154,10 @@ class EventListView_Registered(ListView):
     ordering = ['-creation_date']
 
     def get_queryset(self):
-        return Event.objects.all()
+        events = Event.objects.all()
+        user = self.request.user.profile
+        #events = events.filter(registered_users__icontains=user)
+        return events
 
 
 def signup(request):
@@ -195,3 +198,13 @@ def donate(request, pk):
             event.registered_users.add(request.user.profile)
         event.save()
     return HttpResponseRedirect(reverse('HappyHobby:detailEvent', args=[str(pk)]))
+
+class EventListView_Hosted(ListView):
+    model = Event
+    context_object_name = 'event_list'
+    template_name = 'hostedEvents.html'
+    ordering= ['-creation_date']
+
+    def get_queryset(self):
+        user = self.request.user.profile
+        events = Event.objects.all().filter(author=self.request.user.profile)
