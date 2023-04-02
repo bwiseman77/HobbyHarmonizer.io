@@ -5,6 +5,32 @@
         <p> hi {{ user.username }} this is your dashboard, yay :) </p>
         <img src="{{user.picture.url}}">
 	{% else %}
+
+  <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#"> Hobby Harmonizers </a>
+    </div>
+    <ul class="nav navbar-nav"> 
+      <li color="blue"><a href="/logout"> Logout </a></li>
+      <li class="active"><a href="#"> Home </a></li>
+      <li><a href="/registeredEvents"> My Registered Events </a></li>
+      <li><a href="/hostedEvents"> My Hosted Events </a></li>
+	</ul>
+  </div>
+</nav>
+
+    <p> hi {{ user.username }} this is your dashboard, yay :) </p>
+    <a href="/logout"> Logout </a>
+    <img src="{{user.picture.url}}">
+
+    <!-- (curly bracket) % else % (curly bracket)
+	
+        <p> plz log in </p>
+        <a href="/login"> Login Here </a>
+
+	-->
+
         <p> Please login </p>
     {% endif %}
 {% endblock content %}

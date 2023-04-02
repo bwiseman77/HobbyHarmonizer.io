@@ -6,9 +6,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.contrib.auth.mixins import LoginRequiredMixin
 from . import forms
 from HappyHobby.forms import SignUpForm
-from django.views.generic import CreateView, DetailView
+from django.views.generic import CreateView, DetailView, ListViews
 from .models import Image, Event
 from django.urls import reverse_lazy
 
@@ -45,6 +46,18 @@ def hostedEvents_view(request):
 def detailView_view(request):
     return render(request, 'detailView.html/')
 
+class UserEventListView(LoginRequiredMixin, ListView):
+    model = Event # query the post model to create the list of articles
+    template_name = 'profile.html'
+    context_object_name = 'events' # if I don't set context_object_name here, it will be object_list to iterate through the list of posts in the html page.
+    ordering = ['-creation_date']
+
+    # return the list of items for this view
+    def get_queryset(self):
+        # return Post.objects.filter(author = self.request.user, approved=True) 
+        return Event.objects.filter(author = self.request.user.profile)
+
+
 def logout_view(request):
     print("logging out")
     logout(request)
@@ -61,7 +74,6 @@ def signup(request):
             user.profile.name = form.cleaned_data.get('name')
             user.profile.save()
             user.save()
-            #user = authenticate(username=user.username, password=raw_password)
             login(request, user)
             return redirect('/picture')
     else:
