@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
-
-
 {% block content %}
     {% if user.is_authenticated %}
+        <p> hi {{ user.username }} this is your dashboard, yay :) </p>
+        <img src="{{user.picture.url}}">
 	{% else %}
 
   <nav class="navbar navbar-default">
@@ -31,5 +31,6 @@
 
 	-->
 
+        <p> Please login </p>
     {% endif %}
 {% endblock content %}
