@@ -10,7 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from . import forms
 from HappyHobby.forms import SignUpForm
 from django.views.generic import CreateView, DetailView, ListView
-from .models import Image, Event
+from .models import Image, Event, Profile
 from django.urls import reverse_lazy
 
 def login_view(request):
@@ -157,5 +157,17 @@ class EventListView_Registered(ListView):
     ordering = ['-creation_date']
 
     def get_queryset(self):
-        return Event.objects.all()
+        events = Event.objects.all()
+        user = self.request.user.profile
+        #events = events.filter(registered_users__icontains=user)
+        return events
 
+class EventListView_Hosted(ListView):
+    model = Event
+    context_object_name = 'event_list'
+    template_name = 'hostedEvents.html'
+    ordering= ['-creation_date']
+
+    def get_queryset(self):
+        user = self.request.user.profile
+        events = Event.objects.all().filter(author=self.request.user.profile)
