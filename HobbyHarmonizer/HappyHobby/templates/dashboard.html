@@ -1,92 +1,57 @@
 {% extends 'base.html' %}
 
+
 {% block content %}
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#"> Hobby Harmonizers </a>
-            </div>
-            <ul class="nav navbar-nav">                 
-                                <li color="blue"><a href="/logout"> Logout </a></li>
-                <li class="active"><a href="/dashboard"> Home </a></li>
-                <li><a href="/registeredEvents"> My Registered Events </a></li>
-                <li><a href="/hostedEvents"> My Hosted Events </a></li>
-                <li><a href="/createEvent"> Create an Event </a><li>
-	        </ul>
+
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	<a class="navbar-brand" href="#"> Hobby Harmonizers</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" href="/dashboard"> Home </a>
+      <a class="nav-item nav-link" href="/registeredEvents"> My Registered Events </a>
+      <a class="nav-item nav-link" href="/hostedEvents"> My Hosted Events</a>
+	  <a class="nav-item nav-link" href="/logout"> Logout </a>
+	  <a class="nav-item nav-link" href="/createEvent"> Create an Event </a>
+    </div>
             <div style="margin: 10px;">
                 <div class="navbar-right" style="justify-content:right">
                     <a href="/profile"><img src="../media/{{ user.profile.picture.image }}" alt="{{user.profile.picture.title}}" width="45", height="45" style="border-radius: 50%" class="rounded-circle "></a>
                 </div>
             </div>
-        </div>
-    </nav>
+ 	</div>
+	</nav>
+
     {% if user.is_authenticated %}
-        <p> hi {{ user.username }} this is your dashboard, yay :) </p>
-        <img src="{{user.picture.url}}">
 
 
-        {% for event in object_list %}
-            <li>{{ event.description }} - {{ event.author.name}}</li>
-        {% empty %}
-            <li>No events yet.</li>
-        {% endfor %}
-<form action="{% url 'Recruit:filter' %}" method="POST">
-	<h6><i>
-	filter by
-        {% csrf_token %}
-        <button type="submit" name="all" class="btn-secondary">all posts</button>
-        <button type="submit" name="active" class="btn-secondary">active posts</button>
-        <button type="submit" name="inactive" class="btn-secondary">inactive posts</button>
-        <button type="submit" name="interested" class="btn-secondary">interested posts</button>
-    </i></h6>
-    </form>
-	{% if latest_post_list %}
-			<div class="container">
-        		<div class="row">
-					{% for event in latest_post_list %}
-            			<div class="col-5">
-	              			<a href = "/post/{{post.id}}/">
-	              			<div class="card bg-light" style="margin-bottom:5px;">
-			                <div class="card-body"> 
-			                  	<h4 class="card-title">{{post.post_title}}</h4>
-			                    <h6 class="card-subtitle">Company: {{post.post_company}}</h6><br>
-			                    <h6 class="card-subtitle">Status:
-			                        {% if post.post_status %} Active
-	                    			{% else %} Inactive
-	                    			{% endif %}
-	                    		</h6>
-	                    		<h6>
-	                    			Type: {{post.get_post_type_display}}
-	                    		</h6>
-			                    <h6 class="card-subtitle">Expiration date:
-			                        {% if post.post_expiration.is_past_due %} 
-			                        Expired on {{ post.post_expiration }}
-			                        {% else %} 
-			                        {{ post.post_expiration }}
-			                        {% endif %}
-			                    </h6>
-			                    {% if type == "Recruiter" %}
-			                    <h6> Interested candidates: {{post.post_interested_candidates.count}}
-								</h6>
 
-			                    {% if post.post_recruiter.id == id %}
-			                    	<a href="/{{post.id}}/delete_post" type="button" class="btn btn-l btn-danger"> Delete 💣</a>
-					        		<a href="/{{post.id}}/update_post" type="button" class="btn btn-l btn-warning"> Update 🛠</a>
-					        		{% if post.post_interested_candidates.count > 0 %}
-                                    <a href="/{{post.id}}/make_offer" type="button" class="btn btn-success"> Make an offer💸</a>
-                                    {% endif %}
-                                  
-			                    {% endif %}
-			                    {% endif %}
-					        </div>
-					        </div>
-					        </a>
-				            </div> 
-				    {% endfor %}
-            	</div>
-          	</div>
+    <p text-align=center> hi {{ user.username }} this is your dashboard, yay :) </p>
 
+	{% if event_list %}
+		{% for event in event_list %}
+
+			<div class="card" style="width: 15rem;">
+			<div class="card-body">
+			<h6 class="card-title">Card title</h5>
+			<h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
+			<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+			<a href="/event/{{event.id}}/" class="card-link">Card link</a>
+    		<a href="#" class="card-link">Another link</a>
+		    </div>
+			</div>
+
+			{% endfor %}
 	{% else %}
+		<p> no events </p>
+	{% endif %}
+
+    <img src="{{user.picture.url}}">
+
+    {%  else %}
         <p> plz log in </p>
         <a href="/login"> Login Here </a>
     {% endif %}
