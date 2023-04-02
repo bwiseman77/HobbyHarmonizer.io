@@ -27,24 +27,28 @@
 
     {% if user.is_authenticated %}
 
+    <h3 text-align=center><u> Upcoming Events:</u> </h3>
 
 
     <p text-align=center> hi {{ user.username }} this is your dashboard, yay :) </p>
 
 	{% if event_list %}
+        <div class="row row-cols-1 row-cols-md-6 g-4">
 		{% for event in event_list %}
-
-			<div class="card" style="width: 15rem;">
+            <div class="col">
+			<div class="card" style="width: 20rem;"> 
+            <img class="card-img-top" src="../media/{{ event.author.picture.image }}" width=100 height=100 alt="Card image cap">
 			<div class="card-body">
-			<h6 class="card-title">Card title</h5>
-			<h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-			<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-			<a href="/event/{{event.id}}/" class="card-link">Card link</a>
-    		<a href="#" class="card-link">Another link</a>
+                <a href="/event/{{event.id}}/" class="card-link"><b>Card title</b></a>
+                <h6 class="card-subtitle mb-2 text-body-secondary">{{event.location}}</h6>
+                <h6 class="card-subtitle mb-2 text-body-secondary">{{event.event_date}}</h6>
+                <h6 class="card-subtitle mb-2 text-body-secondary">Benefiting Charity: {{event.charity}}</h6>
+                <h6 class="card-subtitle mb-2 text-body-secondary">tags: {{event.tags}}</h6>
 		    </div>
 			</div>
-
+            </div>
 			{% endfor %}
+        </div>
 	{% else %}
 		<p> no events </p>
 	{% endif %}

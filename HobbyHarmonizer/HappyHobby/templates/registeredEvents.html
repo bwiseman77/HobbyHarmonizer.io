@@ -24,7 +24,28 @@
 
     {% if user.is_authenticated %}
 
-        <p> hi {{ user.username }} this is your page of registered events, yay :) </p>
+        <h3 text-align=center><u> Your Registered Events </u> </h3>
+
+	    {% if event_list %}
+         <div class="row row-cols-1 row-cols-md-6 g-4">
+	    	{% for event in event_list %}
+             <div class="col">
+	    	<div class="card" style="width: 20rem;"> 
+             <img class="card-img-top" src="../media/{{ event.author.picture.image }}" width=100 height=100 alt="Card image cap">
+	        <div class="card-body">
+                <a href="/event/{{event.id}}/" class="card-link"><b>Card title</b></a>
+                <h6 class="card-subtitle mb-2 text-body-secondary">{{event.location}}</h6>
+                <h6 class="card-subtitle mb-2 text-body-secondary">{{event.event_date}}</h6>
+                <h6 class="card-subtitle mb-2 text-body-secondary">Benefiting Charity: {{event.charity}}</h6>
+                <h6 class="card-subtitle mb-2 text-body-secondary">tags: {{event.tags}}</h6>
+		    </div>
+			</div>
+            </div>
+			{% endfor %}
+        </div>
+	{% else %}
+		<p> no events </p>
+	{% endif %}
 
 	{% else %}
 

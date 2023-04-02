@@ -16,7 +16,7 @@ urlpatterns = [
 
    path("profile/", views.UserEventListView.as_view(), name="profile"),
    path("logout/", views.logout_view, name="logout"),
-   path("registeredEvents/", views.registeredEvents_view, name="registeredEvents"),
+   path("registeredEvents/", views.EventListView_Registered.as_view(), name="registeredEvents"),
    path("hostedEvents/", views.hostedEvents_view, name="hostedEvents"),
    path("detailView/", views.detailView_view, name="detailView"),
 ]

@@ -35,6 +35,7 @@ class Event(models.Model):
     author = models.ForeignKey(Profile, related_name='author', on_delete=models.CASCADE, null=True)
     description = models.CharField(max_length=500)
     raised_money = models.IntegerField(default=0)
+    event_title = models.CharField(max_length=50)
     
     tags = MultiSelectField(
             choices=(

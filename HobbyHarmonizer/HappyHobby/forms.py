@@ -29,5 +29,4 @@ class EventForm(forms.ModelForm):
     event_date = forms.DateTimeField(help_text='format: yyyy-mm-dd')
     class Meta:
         model = Event
-        fields = ["event_date", "location", "description", "tags","charity"]
-
+        fields = ["event_title","event_date", "location", "description", "tags","charity",]
