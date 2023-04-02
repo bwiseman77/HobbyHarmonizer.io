@@ -8,7 +8,7 @@
 	</button>
 	<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a class="nav-item nav-link active" href="/dashboard"> Home </a>
+      <a class="nav-item nav-link" href="/dashboard"> Home </a>
       <a class="nav-item nav-link" href="/registeredEvents"> My Registered Events </a>
       <a class="nav-item nav-link" href="/hostedEvents"> My Hosted Events</a>
 	  <a class="nav-item nav-link" href="/logout"> Logout </a>
@@ -26,6 +26,7 @@
    	<div class="container">
         <div>
             <div class="text-center" style="" >
+                <h1>{{ user.profile.name }}'s Profile Page</h1>
                 <div style="opacity:.9; align-items: center">
                     <div class="media pl-5 ml-5 ">
                         <img class="rounded-circle" src="../media/{{ user.profile.picture.image }}", alt="{{ user.profile.picture.title }}" style="border-radius: 50%" width="300" height="300"> 
@@ -42,11 +43,13 @@
               </div>
             </div>
         </div>
-    </div>
-    <div style="background-color: white; display: flex; flex-direction: row">
+     {% if events  %}
+    <h3> List of Created Events </h3>   </div>
+    <div style="padding: 20px; display: flex; align-items: center; flex-direction: row; justify-content: space-around;">
+
     {% for event in events %}
     {% if event %}
-        <div class="card mb-3" style="background-color: blue">
+        <div class="card mb-3" style="">
             <img class="card-img-top" src="../media/{{ event.author.picture.image }}" width=100 height=100 alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">{{ event.title }}</h5>
@@ -60,6 +63,7 @@
         </div>
     {% endif %}
     {% endfor %}
+    {% endif %}
     </div>
    
     {% endif %}
