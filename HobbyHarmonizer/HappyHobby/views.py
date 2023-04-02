@@ -143,8 +143,9 @@ class EventListView_Registered(ListView):
     ordering = ['-creation_date']
 
     def get_queryset(self):
-        return Profile.objects.filter(id=self.request.user.profile.id)
+        return Event.objects.filter(registered_users=self.request.user.profile)   
 
+    
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
