@@ -35,7 +35,8 @@ def login_view(request):
     return render(request, 'login.html/', context={'form': form, 'message' : message})
 
 def dashboard_view(request):
-    return render(request, 'dashboard.html/')
+    events = Event.objects.all()
+    return render(request, 'dashboard.html/', {'events': events})
 
 def registeredEvents_view(request):
     return render(request, 'registeredEvents.html/')
@@ -45,18 +46,6 @@ def hostedEvents_view(request):
 
 def detailView_view(request):
     return render(request, 'detailView.html/')
-
-class UserEventListView(LoginRequiredMixin, ListView):
-    model = Event # query the post model to create the list of articles
-    template_name = 'profile.html'
-    context_object_name = 'events' # if I don't set context_object_name here, it will be object_list to iterate through the list of posts in the html page.
-    ordering = ['-creation_date']
-
-    # return the list of items for this view
-    def get_queryset(self):
-        # return Post.objects.filter(author = self.request.user, approved=True) 
-        return Event.objects.filter(author = self.request.user.profile)
-
 
 def logout_view(request):
     print("logging out")
@@ -98,6 +87,17 @@ class CreateImageView(CreateView):  # new
         obj.save()
         return response
 
+class UserEventListView(LoginRequiredMixin, ListView):
+    model = Event # query the post model to create the list of articles
+    template_name = 'profile.html'
+    context_object_name = 'events' # if I don't set context_object_name here, it will be object_list to iterate through the list of posts in the html page.
+    ordering = ['-creation_date']
+
+    # return the list of items for this view
+    def get_queryset(self):
+        # return Post.objects.filter(author = self.request.user, approved=True) 
+        return Event.objects.filter(author = self.request.user.profile)
+
 class CreateEventView(CreateView):
     model = Event
     form_class = forms.EventForm
@@ -115,3 +115,15 @@ class CreateEventView(CreateView):
 class EventDetailView(DetailView):
     model = Event
     form_class = forms.EventForm
+
+class EventListView(ListView):
+    model = Event
+    context_object_name = 'event_list'
+    template_name = 'dashboard.html'
+    ordering = ['-creation_date']
+    print('hi')
+
+    def get_queryset(self):
+        print('hi')
+        return Event.objects.all()
+
