@@ -188,3 +188,14 @@ def donate(request, pk):
             print(event.registered_users)
         event.save()
     return HttpResponseRedirect(reverse('HappyHobby:detailEvent', args=[str(pk)]))
+
+
+class EventListView_Hosted(ListView):
+    model = Event
+    context_object_name = 'event_list'
+    template_name = 'hostedEvents.html'
+    ordering= ['-creation_date']
+
+    def get_queryset(self):
+        user = self.request.user.profile
+        events = Event.objects.all().filter(author=self.request.user.profile)
