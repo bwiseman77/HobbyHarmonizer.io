@@ -26,6 +26,7 @@ def login_view(request):
             if user is None:
                 message = "Login Failed"
                 print("login failed :-(")
+                
             else:
                 login(request, user)
                 message = f"Hello {user.username}!"
@@ -167,6 +168,7 @@ def signup(request):
             user = form.save()
             user.refresh_from_db()  # load the profile instance created by the signal
             user.profile.email = form.cleaned_data.get('email')
+            user.profile.name = form.cleaned_data.get('name')
             user.profile.save()
             user.save()
             login(request, user)
@@ -213,3 +215,22 @@ class EventListView_Hosted(ListView):
     def get_queryset(self):
         user = self.request.user.profile
         events = Event.objects.all().filter(author=self.request.user.profile)
+
+
+def tag_filter(request):
+    print(request.POST)
+    tag = request.POST.get('tag')
+    print(tag)
+
+    print(Event.objects.filter(tags=tag))
+    filtered = []
+    for obj in Event.objects.get_queryset():
+        print(obj.tags)
+        obj_tags = str(obj.tags).split(', ')
+        print(obj_tags)
+        for t in obj_tags:
+            if t == tag:
+                filtered.append(obj)
+    print(filtered) 
+    
+    return render(request, "dashboard.html", context={"event_list":filtered})

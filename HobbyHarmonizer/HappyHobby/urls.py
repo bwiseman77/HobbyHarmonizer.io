@@ -14,6 +14,7 @@ urlpatterns = [
    path('event/<int:pk>/', views.EventDetailView.as_view(), name="detailEvent"),
    path('donate/<int:pk>/', views.donate, name='donate'),
 
+   path('filter', views.tag_filter, name="filter"),
    path("profile/", views.UserEventListView.as_view(), name="profile"),
    path("logout/", views.logout_view, name="logout"),
    path("registeredEvents/", views.EventListView_Registered.as_view(), name="registeredEvents"),
