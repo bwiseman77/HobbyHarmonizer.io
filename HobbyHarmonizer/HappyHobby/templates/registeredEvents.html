@@ -6,6 +6,8 @@
     {% if user.is_authenticated %}
 	{% else %}
 
+
+
   <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -13,17 +15,14 @@
     </div>
     <ul class="nav navbar-nav"> 
       <li color="blue"><a href="/logout"> Logout </a></li>
-      <li class="active"><a href="#"> Home </a></li>
-      <li><a href="/registeredEvents"> My Registered Events </a></li>
+      <li><a href="/dashboard"> Home </a></li>
+      <li class="active"><a href="/registeredEvents"> My Registered Events </a></li>
       <li><a href="/hostedEvents"> My Hosted Events </a></li>
 	</ul>
   </div>
-</nav>
+  </nav>
 
-    <p> hi {{ user.username }} this is your dashboard, yay :) </p>
-    <a href="/logout"> Logout </a>
-    <img src="{{user.picture.url}}">
-    {% else %}
+    <p> hi {{ user.username }} this is your page of registered events, yay :) </p>
 
     <!-- (curly bracket) % else % (curly bracket)
 	
