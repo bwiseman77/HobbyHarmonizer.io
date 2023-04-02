@@ -8,8 +8,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from . import forms
 from HappyHobby.forms import SignUpForm
-from django.views.generic import CreateView
-from .models import Image
+from django.views.generic import CreateView, DetailView
+from .models import Image, Event
 from django.urls import reverse_lazy
 
 def login_view(request):
@@ -68,21 +68,22 @@ def signup(request):
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
 
-class CreatePostView(CreateView):  # new
+class CreateImageView(CreateView):  # new
     model = Image
-    form_class = forms.PostForm
+    form_class = forms.ImageForm
     template_name = "picture.html"
     success_url = reverse_lazy("HappyHobby:dashboard")
 
     def form_valid(self, form):
-        response = super(CreatePostView, self).form_valid(form)
+        response = super(CreateImageView, self).form_valid(form)
         obj = form.save()
         self.request.user.profile.image = obj
         self.request.user.save()
         print(self.request)
         print(self.request.user)
-        print("hello")
         self.request.user.profile.save()
         return response
 
-        
+class EventDetailView(DetailView):
+    model = Event
+    form_class = forms.EventForm

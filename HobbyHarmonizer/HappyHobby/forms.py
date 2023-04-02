@@ -19,7 +19,12 @@ class SignUpForm(UserCreationForm):
         fields = ('username', 'name', 'email', 'bio',)
 
         
-class PostForm(forms.ModelForm):
+class ImageForm(forms.ModelForm):
     class Meta:
         model = Image
         fields = ["title", "image"]
+
+class EventForm(forms.ModelForm):
+    class Meta:
+        model = Event
+        fields = ["description", "tags"]
