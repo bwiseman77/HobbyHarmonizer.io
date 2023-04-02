@@ -25,8 +25,8 @@
     {% if user.is_authenticated %} 
    	<div class="container">
         <div>
-            <div class="text-center" style="" >
-                <h1>{{ user.profile.name }}'s Profile Page</h1>
+            <div class="text-center"  >
+                <h1>{{ user.username }}'s Profile Page</h1>
                 <div style="opacity:.9; align-items: center">
                     <div class="media pl-5 ml-5 ">
                         <img class="rounded-circle" src="../media/{{ user.profile.picture.image }}", alt="{{ user.profile.picture.title }}" style="border-radius: 50%" width="300" height="300"> 
