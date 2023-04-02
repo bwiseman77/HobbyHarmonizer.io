@@ -8,6 +8,9 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from . import forms
 from HappyHobby.forms import SignUpForm
+from django.views.generic import CreateView
+from .models import Image
+from django.urls import reverse_lazy
 
 def login_view(request):
     form = forms.LoginForm()
@@ -40,20 +43,37 @@ def logout_view(request):
 
 def signup(request):
     if request.method == 'POST':
-        form = SignUpForm(request.POST, request.FILES)
+        form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save()
-            user.refresh_from_db() # load profile
-            user.profile.bio = form.cleaned_data.get('bio')
+            user.refresh_from_db()  # load the profile instance created by the signal
             user.profile.email = form.cleaned_data.get('email')
-            print(form.cleaned_data.get('picture'), type(form.cleaned_data.get('picture')))
-            user.profile.picture = form.cleaned_data.get('picture')
+            user.profile.bio = form.cleaned_data.get('bio')
+            user.profile.name = form.cleaned_data.get('name')
             user.profile.save()
-            #username = form.cleaned_data.get('username')
-            #raw_password = form.cleaned_data.get('password')
-            #user = authenticate(username=username, password=raw_password)
-            #login(request, user)
-            return redirect('/login')
+            user.save()
+            #user = authenticate(username=user.username, password=raw_password)
+            login(request, user)
+            return redirect('/picture')
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
+
+class CreatePostView(CreateView):  # new
+    model = Image
+    form_class = forms.PostForm
+    template_name = "picture.html"
+    success_url = reverse_lazy("HappyHobby:dashboard")
+
+    def form_valid(self, form):
+        response = super(CreatePostView, self).form_valid(form)
+        obj = form.save()
+        self.request.user.profile.image = obj
+        self.request.user.save()
+        print(self.request)
+        print(self.request.user)
+        print("hello")
+        self.request.user.profile.save()
+        return response
+
+        

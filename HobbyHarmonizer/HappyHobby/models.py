@@ -9,32 +9,23 @@ from django.core.exceptions import ObjectDoesNotExist
 
 # Create your models here.
 
+class Image(models.Model):
+    title = models.TextField()
+    image = models.ImageField(default='image.jpg', upload_to='images/')
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
-    username = models.CharField(max_length=20)
-    password = models.CharField(max_length=30)
     email = models.EmailField()
     bio = models.CharField(max_length=300)
-    picture = models.ImageField(default='image.jpg', upload_to='images', null=True, blank=True)
-
-    def save(self, *args, **kwargs):
-
-       # super().save(*args, **kwargs)
-
-        img = Image.open(self.picture.path)
-        if img.height > 300 or img.width > 300:
-            output_size = (300,300)
-            img.thumbnail(output_size)
-            img.save(self.picture.path)
-        
+    picture = models.OneToOneField(Image, on_delete=models.CASCADE, null=True)
 
 @receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    try:
-        instance.profile.save()
-    except ObjectDoesNotExist:
+def update_user_profile(sender, instance, created, **kwargs):
+    if created:
         Profile.objects.create(user=instance)
+    instance.profile.save()       
 
 
 class Tags(models.Model):
