@@ -9,7 +9,7 @@ from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from . import forms
 from HappyHobby.forms import SignUpForm
-from django.views.generic import CreateView, DetailView, ListViews
+from django.views.generic import CreateView, DetailView, ListView
 from .models import Image, Event
 from django.urls import reverse_lazy
 
