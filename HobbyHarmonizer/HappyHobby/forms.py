@@ -22,7 +22,7 @@ class SignUpForm(UserCreationForm):
 class ImageForm(forms.ModelForm):
     class Meta:
         model = Image
-        fields = ["title", "image"]
+        fields = ["image"]
 
 class EventForm(forms.ModelForm):
 

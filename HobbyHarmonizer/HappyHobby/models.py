@@ -11,7 +11,6 @@ from multiselectfield import MultiSelectField
 # Create your models here.
 
 class Image(models.Model):
-    title = models.TextField()
     image = models.ImageField(default='image.jpg', upload_to='images/')
 
 

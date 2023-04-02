@@ -194,8 +194,13 @@ def donate(request, pk):
         event.raised_money = event.raised_money + int(request.POST.get('amount'))
         if event.registered_users.filter(id=request.user.profile.id).exists():
             event.registered_users.remove(request.user.profile)
+            print(event.registered_users)
+            print("yep")
         else:
             event.registered_users.add(request.user.profile)
+
+            print("no")
+            print(event.registered_users)
         event.save()
     return HttpResponseRedirect(reverse('HappyHobby:detailEvent', args=[str(pk)]))
 

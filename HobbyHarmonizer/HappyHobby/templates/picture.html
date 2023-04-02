@@ -1,7 +1,15 @@
-<!-- templates/post.html -->
-<h1>Create Post Page</h1>
-<form method="post" enctype="multipart/form-data">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Submit New Post</button>
-</form>
+{% extends 'base.html' %}
+{% block content %}
+  
+  <body style="display: flex; justify-content: center">
+  <div style="background-color: white;margin: auto; padding: 50px; text-align:left">
+  <h2>Add a Profile Picture!</h2>
+  <h4>Last step of registration :)</h4>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit New Post</button>
+    </form>    <a href="/dashboard"> Back </a>
+  </div>
+  </body>
+{% endblock %}
