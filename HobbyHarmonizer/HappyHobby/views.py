@@ -121,9 +121,16 @@ class EventListView(ListView):
     context_object_name = 'event_list'
     template_name = 'dashboard.html'
     ordering = ['-creation_date']
-    print('hi')
 
     def get_queryset(self):
-        print('hi')
+         return Event.objects.all()
+
+class EventListView_Registered(ListView):
+    model = Event
+    context_object_name = 'event_list'
+    template_name = 'registeredEvents.html'
+    ordering = ['-creation_date']
+
+    def get_queryset(self):
         return Event.objects.all()
 
