@@ -63,16 +63,6 @@ class DashboardEventList(ListView):
             return posts.order_by('post_expiration')
 
 
-
-def registeredEvents_view(request):
-    return render(request, 'registeredEvents.html/')
-
-def hostedEvents_view(request):
-    return render(request, 'hostedEvents.html/')
-
-def detailView_view(request):
-    return render(request, 'detailView.html/')
-
 def logout_view(request):
     print("logging out")
     logout(request)
@@ -137,8 +127,6 @@ class CreateEventView(CreateView):
         obj.save()
         return response
 
-
-
 class EventListView(ListView):
     model = Event
     context_object_name = 'event_list'
@@ -155,11 +143,7 @@ class EventListView_Registered(ListView):
     ordering = ['-creation_date']
 
     def get_queryset(self):
-        events = Event.objects.all()
-        user = self.request.user.profile
-        #events = events.filter(registered_users__icontains=user)
-        return events
-
+        return Profile.objects.filter(id=self.request.user.profile.id)
 
 def signup(request):
     if request.method == 'POST':
@@ -205,6 +189,7 @@ def donate(request, pk):
             print(event.registered_users)
         event.save()
     return HttpResponseRedirect(reverse('HappyHobby:detailEvent', args=[str(pk)]))
+
 
 class EventListView_Hosted(ListView):
     model = Event
