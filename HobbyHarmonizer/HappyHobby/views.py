@@ -34,9 +34,34 @@ def login_view(request):
             
     return render(request, 'login.html/', context={'form': form, 'message' : message})
 
-def dashboard_view(request):
-    events = Event.objects.all()
-    return render(request, 'dashboard.html/', {'events': events})
+class DashboardEventList(ListView):
+    model = Event
+    paginate_by = 20
+    context_object_name = 'event_list'
+    template_name = 'dashboard.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs) 
+        return context
+
+    def get_queryset(self):
+        if "R_filtertype" in self.request.session:
+            filter_type = self.request.session["R_filtertype"];
+        else:
+            filter_type = ""
+
+        if filter_type == "all":
+            return posts.order_by('event_date')
+        elif filter_type == "active":
+            return posts.filter(post_status=True)
+        elif filter_type == "inactive":
+            return posts.filter(post_status=False)
+        elif filter_type == "interested":
+            return posts.exclude(post_interested_candidates=None)
+        else:
+            return posts.order_by('post_expiration')
+
+
 
 def registeredEvents_view(request):
     return render(request, 'registeredEvents.html/')
