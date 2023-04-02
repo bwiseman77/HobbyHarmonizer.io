@@ -90,10 +90,12 @@ class CreateImageView(CreateView):  # new
         response = super(CreateImageView, self).form_valid(form)
         obj = form.save()
         self.request.user.profile.image = obj
-        self.request.user.save()
-        print(self.request)
         print(self.request.user)
-        self.request.user.profile.save()
+        #self.request.user.profile.save()
+        #self.request.user.save()
+        obj.profile = self.request.user.profile
+        obj.profile.save()
+        obj.save()
         return response
 
 class CreateEventView(CreateView):

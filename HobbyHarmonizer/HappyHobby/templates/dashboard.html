@@ -6,13 +6,18 @@
             <div class="navbar-header">
                 <a class="navbar-brand" href="#"> Hobby Harmonizers </a>
             </div>
-            <ul class="nav navbar-nav"> 
-                <li color="blue"><a href="/logout"> Logout </a></li>
+            <ul class="nav navbar-nav">                 
+                                <li color="blue"><a href="/logout"> Logout </a></li>
                 <li class="active"><a href="/dashboard"> Home </a></li>
                 <li><a href="/registeredEvents"> My Registered Events </a></li>
                 <li><a href="/hostedEvents"> My Hosted Events </a></li>
-                <li><a href="#"> Create Event </a><li>
+                <li><a href="#"> Create Event </a><li> 
 	        </ul>
+            <div style="margin: 10px;">
+                <div class="navbar-right" style="justify-content:right">
+                    <a href="/profile"><img src="../media/{{ user.profile.picture.image }}" alt="{{user.profile.picture.title}}" width="45", height="45" style="border-radius: 50%" class="rounded-circle "></a>
+                </div>
+            </div>
         </div>
     </nav>
     {% if user.is_authenticated %}

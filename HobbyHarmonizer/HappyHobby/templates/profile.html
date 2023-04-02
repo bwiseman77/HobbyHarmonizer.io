@@ -2,12 +2,32 @@
 {% block title %}Profile Page{% endblock title %}
 {% block content %}
     {% if user.is_authenticated %}
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#"> Hobby Harmonizers </a>
+            </div>
+            <ul class="nav navbar-nav">                 
+                                <li color="blue"><a href="/logout"> Logout </a></li>
+                <li class="active"><a href="/dashboard"> Home </a></li>
+                <li><a href="/registeredEvents"> My Registered Events </a></li>
+                <li><a href="/hostedEvents"> My Hosted Events </a></li>
+                <li><a href="#"> Create Event </a><li> 
+	        </ul>
+            <div style="margin: 10px;">
+                <div class="navbar-right" style="justify-content:right">
+                    <a href="/profile"><img src="../media/{{ user.profile.picture.image }}" alt="{{user.profile.picture.title}}" width="45", height="45" style="border-radius: 50%" class="rounded-circle "></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
    	<div class="container my-5 py-5 mx-5 px-5">
         <div class="row">
             <div class="col-md-10 text-center" style="margin:auto;" >
                 <div class="mx-auto bg-light pt-5 mt-5 pb-5 mb-5 rounded" style="opacity:.9">
                     <div class="media pl-5 ml-5 ">
-                        <img class="rounded-circle" src="../media/{{ user.profile.picture.image }}", alt="{{ user.profile.picture.title }}" width="300" height="300"> 
+                        <img class="rounded-circle" src="../media/{{ user.profile.picture.image }}", alt="{{ user.profile.picture.title }}" style="border-radius: 50%" width="300" height="300"> 
                       <div class="media-body">
 
                     <h1 class="account-heading mt-5" style="margin-left: 30px">{{ user.profile.name }}</h1>
